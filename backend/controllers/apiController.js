@@ -21,4 +21,5 @@ const updateApi = asyncHandler(async (req, res) => {
 const deleteApi = asyncHandler(async (req, res) => {
   res.json({ message: `get blogs notices and semester ${req.params.id}` });
 });
+
 module.exports = { getApi, setApi, updateApi, deleteApi };
