@@ -1,10 +1,14 @@
 const asyncHandler = require("express-async-handler");
 
+const { Csit } = require("../model/CsitModel.js");
+
 // desc get Api
 // route GET /api
 // access Private
 const getApi = asyncHandler(async (req, res) => {
-  res.status(200).json({ message: "hello from controller" });
+  const csit = await Csit.find();
+
+  res.status(200).json(csit);
 });
 
 const setApi = asyncHandler(async (req, res) => {

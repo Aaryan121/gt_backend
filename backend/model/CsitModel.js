@@ -12,7 +12,7 @@ const CsitSchema = new Schema({
 });
 
 const SemesterSchema = new Schema({
-  sem: number,
+  sem: Number,
   subjects: [
     {
       type: mongoose.Schema.Types.ObjectId,
@@ -22,30 +22,66 @@ const SemesterSchema = new Schema({
 });
 
 const SubSchema = new Schema({
-  subjectId: reqString,
-  subjectName: reqString,
-  syllabusUrl: reqString,
+  subjectId: {
+    type: String,
+    require: true,
+  },
+  subjectName: {
+    type: String,
+    require: true,
+  },
+  syllabusUrl: {
+    type: String,
+    require: true,
+  },
   notes: [{ type: mongoose.Schema.Types.ObjectId, ref: "notes" }],
   videos: [{ type: mongoose.Schema.Types.ObjectId, ref: "videos" }],
   imp_questions: [{ type: mongoose.Schema.Types.ObjectId, ref: "impques" }],
 });
 
 const NotesSchema = new Schema({
-  courseId: reqString,
-  title: reqSting,
-  noteUrl: reqString,
+  courseId: {
+    type: String,
+    require: true,
+  },
+  title: {
+    type: String,
+    require: true,
+  },
+  noteUrl: {
+    type: String,
+    require: true,
+  },
 });
 
 const VideoSchema = new Schema({
-  courseID: reqString,
-  title: reqString,
-  videoUrl: reqString,
+  courseID: {
+    type: String,
+    require: true,
+  },
+  title: {
+    type: String,
+    require: true,
+  },
+  videoUrl: {
+    type: String,
+    require: true,
+  },
 });
 
 const ImpSchema = new Schema({
-  courseID: reqString,
-  title: reqString,
-  impUrl: reqString,
+  courseID: {
+    type: String,
+    require: true,
+  },
+  title: {
+    type: String,
+    require: true,
+  },
+  impUrl: {
+    type: String,
+    require: true,
+  },
 });
 
 const Csit = mongoose.model("Csit", CsitSchema);
