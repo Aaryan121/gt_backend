@@ -6,7 +6,7 @@ const { Csit } = require("../model/CsitModel.js");
 // route GET /api
 // access Private
 const getApi = asyncHandler(async (req, res) => {
-  const csit = await Csit.find();
+  const csit = await Csit.find().populate('');
 
   res.status(200).json(csit);
 });
