@@ -7,12 +7,17 @@ const CsitSchema = new Schema({
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Semesters",
+      unique: true
     },
   ],
 });
 
 const SemesterSchema = new Schema({
-  sem: Number,
+  sem: {
+    type:String,
+    require:true,
+    unique: true
+  },
   subjects: [
     {
       type: mongoose.Schema.Types.ObjectId,
