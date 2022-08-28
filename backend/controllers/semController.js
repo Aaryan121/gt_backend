@@ -1,13 +1,13 @@
 const asyncHandler = require("express-async-handler");
 const { default: mongoose } = require("mongoose");
 
-const { Csit , Semesters } = require("../model/CsitModel.js");
+const { Csit , Semesters, sub } = require("../model/CsitModel.js");
 
 // desc get Api
 // route GET /api
 // access Private
 const getSem = asyncHandler(async (req, res) => {
-  const Sem = await Semesters.find();
+  const Sem = await Semesters.find().populate("subjects");
 
   res.status(200).json(Sem);
 });
@@ -32,7 +32,13 @@ const setSem = asyncHandler(async (req, res) => {
 });
 
 const updateSem = asyncHandler(async (req, res) => {
-   await Semesters.findByIdAndUpdate()
+  const sem = await Semesters.findById(req.params.id)
+
+  if(!sem){
+    throw new Error('Invalid ID')
+  }
+
+   await Semesters.findByIdAndUpdate(req.params.id,req.body , {new: true})
   res.json({ message: `get blogs notices and semester ${req.params.id}` });
 });
 

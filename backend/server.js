@@ -13,6 +13,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use("/api", require("./routes/apiRoutes"));
+app.use("/api", require("./routes/semRoutes"));
+app.use("/api", require("./routes/subRoutes"));
+app.use("/api", require("./routes/noteRoutes"));
 
 app.use(errorHandler);
 

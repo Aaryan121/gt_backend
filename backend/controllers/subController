@@ -1,0 +1,62 @@
+const asyncHandler = require("express-async-handler");
+const { default: mongoose } = require("mongoose");
+
+const { Semesters , sub } = require("../model/CsitModel.js");
+
+// desc get Api
+// route GET /api
+// access Private
+const getSub = asyncHandler(async (req, res) => {
+  const subj = await sub.find();
+
+  res.status(200).json(subj);
+});
+
+const setSub = asyncHandler(async (req, res) => {
+    
+console.log(req.body)
+  if (!req.body.subId && !req.body.subName && !req.body.syllabusUrl) {
+    res.status(400);
+    throw new Error("please add a subject id, name and syllabus url correctly");
+  }
+  const subj = await sub.create({
+    _id: new mongoose.Types.ObjectId(),
+    subjectId: `${req.body.subId}`,
+    subjectName: `${req.body.subName}`,
+    syllabusUrl:`${req.body.syllabusUrl}`,
+    sem: `${req.body.sem}`
+  })
+//console.log(subj)
+  const semester = await Semesters.findOneAndUpdate({
+    sem: `${subj.sem}`
+  }, {$push: {subjects: subj._id}} )
+
+  res.status(200).json({ subject: subj });
+});
+
+const updateSub = asyncHandler(async (req, res) => {
+  const subj = await sub.findById(req.params.id)
+
+  if(!subj){
+    throw new Error('Invalid ID')
+  }
+
+   await Semesters.findByIdAndUpdate(req.params.id,req.body , {new: true})
+  res.json({ message: `get blogs notices and semester ${req.params.id}` });
+});
+
+
+const deleteSub = asyncHandler(async (req, res) => {
+
+    if(!req.params.id){
+        throw new Error("please pass id of document you want to remove")
+    }
+    
+    const subj = await sub.findById(req.params.id)
+    await subj.remove()
+
+
+  res.json({ message: `get blogs notices and semester ${req.params.id}` });
+});
+
+module.exports = { getSub, setSub, updateSub, deleteSub };

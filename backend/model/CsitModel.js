@@ -39,6 +39,7 @@ const SubSchema = new Schema({
     type: String,
     require: true,
   },
+  sem:{type: String, require: true},
   notes: [{ type: mongoose.Schema.Types.ObjectId, ref: "notes" }],
   videos: [{ type: mongoose.Schema.Types.ObjectId, ref: "videos" }],
   imp_questions: [{ type: mongoose.Schema.Types.ObjectId, ref: "impques" }],

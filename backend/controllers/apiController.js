@@ -6,7 +6,16 @@ const { Csit , Semesters } = require("../model/CsitModel.js");
 // route GET /api
 // access Private
 const getApi = asyncHandler(async (req, res) => {
-  const csit = await Csit.find().populate('semesters');
+  const csit = await Csit.find()
+  .populate({ 
+    path: 'semesters',
+    populate: {
+      path: 'subjects',
+      model: 'sub'
+    } 
+ });
+
+  
 
   res.status(200).json(csit);
 });
