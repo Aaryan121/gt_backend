@@ -26,7 +26,7 @@ const setNote = asyncHandler(async (req, res) => {
   })
 
   const subj = await sub.findOneAndUpdate({
-    courseId: `${note.ObjectId}`
+    courseId: `${note.courseId}`
   }, {$push: {notes: note._id}} )
 
   res.status(200).json({ message: subj });

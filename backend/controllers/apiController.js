@@ -11,7 +11,19 @@ const getApi = asyncHandler(async (req, res) => {
     path: 'semesters',
     populate: {
       path: 'subjects',
-      model: 'sub'
+      model: 'sub',
+      populate:[{
+        path:'notes',
+        model:'notes'
+      },
+      {
+        path:'videos',
+        model:'videos'
+      },
+      {
+        path:'imp_questions',
+        model:'impques'
+      }]
     } 
  });
 

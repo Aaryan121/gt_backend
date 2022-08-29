@@ -16,6 +16,8 @@ app.use("/api", require("./routes/apiRoutes"));
 app.use("/api", require("./routes/semRoutes"));
 app.use("/api", require("./routes/subRoutes"));
 app.use("/api", require("./routes/noteRoutes"));
+app.use("/api", require("./routes/videoRoutes"));
+app.use("/api", require("./routes/impQuestionsRoutes"));
 
 app.use(errorHandler);
 
