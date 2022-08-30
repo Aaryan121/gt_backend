@@ -3,14 +3,13 @@ const { default: mongoose } = require("mongoose");
 
 const { impques, sub } = require("../model/CsitModel.js");
 
-// desc get Api
-// route GET /api
-// access Private
+
 const getimp = asyncHandler(async (req, res) => {
   const imp = await impques.find();
 
   res.status(200).json(imp);
 });
+
 
 const setimp = asyncHandler(async (req, res) => {
   if (!req.body.CID) {
@@ -33,25 +32,32 @@ const setimp = asyncHandler(async (req, res) => {
 });
 
 const updateimp = asyncHandler(async (req, res) => {
-  const imp = await impques.findById(req.params.id)
+  const imp = await impques.findById(req.params.title)
 
   if(!imp){
-    throw new Error('Invalid ID')
+    throw new Error('Invalid title')
   }
 
-   await impques.findByIdAndUpdate(req.params.id,req.body , {new: true})
-  res.json({ message: `get blogs notices and semester ${req.params.id}` });
+  const update = await impques.findByOneAndUpdate({title: `${req.params.title}`},req.body , {new: true})
+  res.json({ update });
 });
 
 
 const deleteimp = asyncHandler(async (req, res) => {
 
-    if(!req.params.id){
-        throw new Error("please pass id of document you want to remove")
+    if(!req.params.title){
+        throw new Error("please pass title of document you want to remove")
     }
     
-    const imp = impQuestions.findById(req.params.id)
-    await imp.remove()
+    
+    const imp = impques.findOne({title: `${req.params.title}`})
+
+    const subj = await sub.findOneAndUpdate({
+      courseId: `${parms.CID}`
+    }, {$pull: {imp_questions: imp._id}} )
+
+    await imp.deleteOne({title: `${req.params.title}`})
+
 
 
   res.json({ message: `get blogs notices and semester ${req.params.id}` });

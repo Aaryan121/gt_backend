@@ -53,6 +53,11 @@ const deleteSub = asyncHandler(async (req, res) => {
     }
     
     const subj = await sub.findById(req.params.id)
+
+    const semester = await Semesters.findOneAndUpdate({
+      sem: `${subj.sem}`
+    }, {$pull: {subjects: subj._id}} )
+
     await subj.remove()
 
 

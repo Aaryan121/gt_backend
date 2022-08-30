@@ -50,6 +50,11 @@ const deleteSem = asyncHandler(async (req, res) => {
     }
     
     const sem = Semesters.findById(req.params.id)
+
+    const csit = await Csit.findOneAndUpdate({
+      _id: "630ac5fd03f2448a3d94a12a"
+    }, {$push: {semesters: semester._id}} )
+    
     await sem.remove()
 
 

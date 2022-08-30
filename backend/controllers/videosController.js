@@ -53,6 +53,11 @@ const deleteVideo = asyncHandler(async (req, res) => {
     }
     
     const video = videos.findById(req.params.id)
+
+    const videog = await sub.findOneAndUpdate({
+      courseId: `${video.courseId}`
+    }, {$pull: {videos: video._id}} )
+
     await video.remove()
 
 

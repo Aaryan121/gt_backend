@@ -51,6 +51,11 @@ const deleteNote = asyncHandler(async (req, res) => {
     }
     
     const note = notes.findById(req.params.id)
+
+    const subj = await sub.findOneAndUpdate({
+      courseId: `${note.courseId}`
+    }, {$pull: {notes: note._id}} )
+
     await note.remove()
 
 
